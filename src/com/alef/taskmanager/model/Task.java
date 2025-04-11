@@ -1,4 +1,4 @@
-package com.alef.taskmanager;
+package com.alef.taskmanager.model;
 
 public class Task {
 	private int id;
@@ -9,7 +9,7 @@ public class Task {
 		this.id = id;
 	}
 
-	void setTitle(String title) {
+	public void setTitle(String title) {
 		this.title = title;
 	}
 

@@ -1,6 +1,8 @@
-package com.alef.taskmanager;
+package com.alef.taskmanager.app;
 
 import java.util.Scanner;
+
+import com.alef.taskmanager.core.TaskManager;
 
 public class TaskApp {
 	private Scanner sc;
@@ -24,8 +26,7 @@ public class TaskApp {
 			System.out.println("(4). Delete a task.");
 			System.out.println("(5). Close the program.");
 
-			System.out.print("Enter your choise here: ");
-			int choise = this.sc.nextInt();
+			int choise = this.getIntInput("Enter your choise here: ");
 
 			switch (choise) {
 				case 1:
@@ -52,7 +53,7 @@ public class TaskApp {
 	}
 
 	public void createTaskInput() {
-		this.sc.nextLine(); // consume the leftover newline
+		// this.sc.nextLine(); // consume the leftover newline
 		System.out.print("Enter your task title: ");
 		String title = this.sc.nextLine();
 		this.tasks.addTask(title);
@@ -66,8 +67,7 @@ public class TaskApp {
 	}
 
 	public void completeTaskInput() {
-		System.out.print("Enter your task ID: ");
-		int id = this.sc.nextInt();
+		int id = this.getIntInput("Enter your task ID: ");
 		boolean result = this.tasks.completeTask(id);
 		if (result) {
 			System.out.println("Complete!");
@@ -77,8 +77,7 @@ public class TaskApp {
 	}
 
 	public void deleteTaskInput() {
-		System.out.println("Enter your task ID: ");
-		int id = this.sc.nextInt();
+		int id = this.getIntInput("Enter your task ID: ");
 		boolean result = this.tasks.removeTask(id);
 		if (result) {
 			System.out.println("Complete!");
@@ -86,4 +85,17 @@ public class TaskApp {
 		}
 		System.out.println("Error!");
 	}
+
+	private int getIntInput(String prompt) {
+		System.out.print(prompt);
+		while (!sc.hasNextInt()) {
+			System.out.println("Invalid input. Please enter a number.");
+			System.out.print(prompt);
+			sc.next(); // descarta a entrada inválida
+		}
+		int input = sc.nextInt();
+		sc.nextLine(); // consome a quebra de linha
+		return input;
+	}
+
 }
