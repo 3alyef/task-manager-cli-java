@@ -3,6 +3,7 @@
 Gerenciador de tarefas simples feito em Java, com interface de linha de comando (CLI). Projeto feito para praticar fundamentos de Java, como orientação a objetos e estruturas de dados.
 
 ## Funcionalidades
+
 - Adicionar tarefas
 - Listar tarefas
 - Editar tarefas
@@ -11,4 +12,6 @@ Gerenciador de tarefas simples feito em Java, com interface de linha de comando 
 ## Como rodar
 
 ```bash
-./build.sh
+make run
+
+```

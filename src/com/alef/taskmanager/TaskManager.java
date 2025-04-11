@@ -26,24 +26,25 @@ public class TaskManager {
 
 	public void listTasks() {
 		for (Task task : this.tasks) {
-			System.out.println("TaskId: " + task.getId());
-			System.out.println("Task title: " + task.getTitle());
+			System.out.println("Task ID    : " + task.getId());
+			System.out.println("Task title : " + task.getTitle());
 			System.out.println("Task status: " + task.getStatus());
 			System.out.println();
 		}
 	}
 
-	public void completeTask(int id) {
+	public boolean completeTask(int id) {
 		for (Task task : this.tasks) {
 			if (task.getId() == id) {
 				task.setStatus(true);
-				break;
+				return true;
 			}
 		}
+		return false;
 	}
 
-	public void removeTask(int id) {
+	public boolean removeTask(int id) {
 		// this.tasks.remove(id);
-		this.tasks.removeIf(task -> task.getId() == id);
+		return this.tasks.removeIf(task -> task.getId() == id);
 	}
 }
