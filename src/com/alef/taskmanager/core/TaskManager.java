@@ -52,12 +52,25 @@ public class TaskManager {
 		this.taskStorage.save(this.tasks);
 	}
 
-	public void listTasks() {
+	public void listAllTasks() {
 		for (Task task : this.tasks) {
-			System.out.println("Task ID    : " + task.getId());
-			System.out.println("Task title : " + task.getTitle());
-			System.out.println("Task status: " + task.getStatus());
-			System.out.println();
+			this.showTaskData(task);
+		}
+	}
+
+	public void listPendingTasks() {
+		for (Task task : this.tasks) {
+			if (!task.getStatus()) {
+				this.showTaskData(task);
+			}
+		}
+	}
+
+	public void listCompletedTasks() {
+		for (Task task : this.tasks) {
+			if (task.getStatus()) {
+				this.showTaskData(task);
+			}
 		}
 	}
 
@@ -90,5 +103,33 @@ public class TaskManager {
 			}
 		}
 		this.nextId = maxId + 1;
+	}
+
+	public boolean updateTaskTitle(int Id, String newTitle) {
+		for (Task task : this.tasks) {
+			if (task.getId() == Id) {
+				task.setTitle(newTitle);
+				this.taskStorage.save(this.tasks);
+				return true;
+			}
+		}
+		return false;
+	}
+
+	public boolean idScanner(int id) {
+		for (Task task : this.tasks) {
+			if (task.getId() == id) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	private void showTaskData(Task task) {
+		System.out.println();
+		System.out.println("Task ID    : " + task.getId());
+		System.out.println("Task title : " + task.getTitle());
+		System.out.println("Task status: " + (task.getStatus() ? "Completed" : "Incompleted"));
+		System.out.println();
 	}
 }

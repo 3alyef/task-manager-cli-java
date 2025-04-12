@@ -41,6 +41,9 @@ public class TaskStorage {
 
 			List<Task> tasks = gson.fromJson(tasksJson, taskListType);
 
+			// Versão simplificada:
+			// String json = Files.readString(Path.of("tasks.json"));
+
 			return tasks;
 		} catch (IOException error) {
 			System.out.println("Failed to load tasks: " + error.getMessage());

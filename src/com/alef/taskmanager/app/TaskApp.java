@@ -20,28 +20,37 @@ public class TaskApp {
 
 			System.out.println("Welcome to your taskmanager!");
 			System.out.println("Choose an option:");
-			System.out.println("(1). Create new task.");
-			System.out.println("(2). List all tasks.");
-			System.out.println("(3). Complete a task.");
-			System.out.println("(4). Delete a task.");
-			System.out.println("(5). Close the program.");
+			System.out.println("[1]. Create new task.");
+			System.out.println("[2]. List tasks.");
+			System.out.println("[3]. Complete a task.");
+			System.out.println("[4]. Edit a task.");
+			System.out.println("[5]. Delete a task.");
+			System.out.println("[6]. Close the program.");
 
 			int choise = this.getIntInput("Enter your choise here: ");
 
 			switch (choise) {
 				case 1:
 					this.createTaskInput();
+					sc.nextLine();
 					break;
 				case 2:
 					this.listTasksInput();
+					sc.nextLine();
 					break;
 				case 3:
 					this.completeTaskInput();
+					sc.nextLine();
 					break;
 				case 4:
-					this.deleteTaskInput();
+					this.editTaskInput();
+					sc.nextLine();
 					break;
 				case 5:
+					this.deleteTaskInput();
+					sc.nextLine();
+					break;
+				case 6:
 					System.out.println("Bye!");
 					run = false;
 					break;
@@ -61,14 +70,60 @@ public class TaskApp {
 	}
 
 	public void listTasksInput() {
-		System.out.println("Task List: \n");
-		this.tasks.listTasks();
-		System.out.println("Complete!");
+		System.out.println("-------------");
+		System.out.println("Options: ");
+		System.out.println("[1] View all");
+		System.out.println("[2] View pending");
+		System.out.println("[3] View completed");
+
+		int choise = this.getIntInput("Enter your choise here: ");
+
+		switch (choise) {
+			case 1:
+				this.tasks.listAllTasks();
+				break;
+			case 2:
+				this.tasks.listPendingTasks();
+				break;
+			case 3:
+				this.tasks.listCompletedTasks();
+				break;
+			default:
+				System.out.println("Invalid option");
+				break;
+		}
+		/*
+		 * System.out.println("Task List: \n");
+		 * this.tasks.listTasks();
+		 * System.out.println("Complete!");
+		 */
 	}
 
 	public void completeTaskInput() {
 		int id = this.getIntInput("Enter your task ID: ");
 		boolean result = this.tasks.completeTask(id);
+		if (result) {
+			System.out.println("Complete!");
+			return;
+		}
+		System.out.println("Error!");
+	}
+
+	public void editTaskInput() {
+		// boolean have = true;
+		int id = 0;
+		while (true) {
+			id = this.getIntInput("Enter your task ID: ");
+
+			if (this.tasks.idScanner(id)) {
+				break;
+			}
+			System.out.println("Id not found, try again...");
+		}
+
+		System.out.print("Enter the new title: ");
+		String newTitle = sc.nextLine();
+		boolean result = this.tasks.updateTaskTitle(id, newTitle);
 		if (result) {
 			System.out.println("Complete!");
 			return;

@@ -21,8 +21,8 @@ public class Task {
 		return this.id;
 	}
 
-	public String getStatus() {
-		return this.status ? "Complete" : "Incomplete";
+	public boolean getStatus() {
+		return this.status;
 	}
 
 	public void setStatus() {
